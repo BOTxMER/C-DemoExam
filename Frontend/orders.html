@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<head>
+    <title>Список заявок</title>
+</head>
+<body>
+    <a href="create.html">Создание заявки</a>
+    <a href="orders.html">Список заявок</a>
+    <a href="update.html">Обновление заявки</a>
+    <table>
+        <tr>
+            <th>Номер заявки</th>
+            <th>Дата добавления</th>
+            <th>Оборудование</th>
+            <th>Тип неисправности</th>
+            <th>Описание проблемы</th>
+            <th>Клиент</th>
+            <th>Статус заявки</th>
+            <th>Мастер</th>
+        </tr>
+    </table>
+    <script>
+        let table = document.querySelector("table");
+        GetOrders();
+
+        async function GetOrders() {
+            let response = await fetch("http://localhost:5259//orders").then(data => data.json());
+            if(response.message)
+                alert(response.message);
+            response.repo.forEach(o => {
+               let tr = document.createElement("tr"); 
+
+               tr.innerHTML = `
+                    <td>${o.number}</td>
+                    <td>${o.startDate}</td>
+                    <td>${o.device}</td>
+                    <td>${o.problemType}</td>
+                    <td>${o.description}</td>
+                    <td>${o.client}</td>
+                    <td>${o.status}</td>
+                    <td>${o.master}</td> `;
+
+                table.append(tr);
+            });
+
+        }
+
+    </script>
+    <style>
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #2fca29;
+            color: white;
+        }
+
+        tr:hover {background-color: #f1f1f1;}
+    </style>
+</body>
