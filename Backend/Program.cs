@@ -29,3 +29,5 @@ class Order
     public string? Master { get; set;} = "Не назначен";
     public List<string>? Comments { get; set;} = [];
 }
+
+record class UpdateOrderDTO(int Number, string? Status = "", string? Description = "", string? Master = "", string? Comment = "");
