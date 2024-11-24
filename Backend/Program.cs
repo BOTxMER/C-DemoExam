@@ -13,7 +13,7 @@ app.UseCors(option => option
 
 string message = "";
 
-app.MapGet("/orders", (int param = 0) => 
+app.MapGet("orders", (int param = 0) => 
 {
     string buffer = message;
     message="";
@@ -21,7 +21,9 @@ app.MapGet("/orders", (int param = 0) =>
         return new { repo = repo.FindAll(x=> x.Number == param), message= buffer};
     return new {repo, message= buffer};
 });
-
+app.MapGet("create", ([AsParameters] Order dto) =>
+    repo.Add(dto));
+    
 app.Run();
 
 class Order
