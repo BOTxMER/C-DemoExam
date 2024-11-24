@@ -11,7 +11,16 @@ app.UseCors(option => option
 .AllowAnyMethod()
 .AllowAnyHeader());
 
-app.MapGet("/", () => "Hello World!");
+string message = "";
+
+app.MapGet("/orders", (int param = 0) => 
+{
+    string buffer = message;
+    message="";
+    if(param !=0)
+        return new { repo = repo.FindAll(x=> x.Number == param), message= buffer};
+    return new {repo, message= buffer};
+});
 
 app.Run();
 
