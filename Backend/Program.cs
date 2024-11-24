@@ -7,6 +7,17 @@ app.Run();
 
 class Order
 {
+    public Order(int number, DateOnly startDate, string device, string problemType, string description, string cLient, string status)
+    {   
+        Number = number;
+        StartDate = startDate;
+        Device = device;
+        ProblemType = problemType;
+        Description = description;
+        CLient = cLient;
+        Status = status;
+    }
+
     public int Number { get; set;}
     public DateOnly StartDate { get; set;}
     public string Device { get; set;}
