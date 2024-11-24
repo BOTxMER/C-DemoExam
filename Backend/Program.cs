@@ -21,9 +21,29 @@ app.MapGet("orders", (int param = 0) =>
         return new { repo = repo.FindAll(x=> x.Number == param), message= buffer};
     return new {repo, message= buffer};
 });
-app.MapGet("create", ([AsParameters] Order dto) =>
-    repo.Add(dto));
-    
+app.MapGet("create", ([AsParameters] Order dto) =>repo.Add(dto));
+app.MapGet("update", ([AsParameters]UpdateOrderDTO dto) =>
+{
+    var order = repo.Find(x=>x.Number == dto.Number);
+    if(order == null)
+        return;
+    if(dto.Status != order.Status && dto.Status != "")
+    {
+        order.Status=dto.Status;
+        message += $"Статус заявки №{order.Number} изменен\n";
+        if(order.Status == "выполнено")
+        {
+            message += $"Заявка №{order.Number} завершена\n";
+            order.EndDate=DateOnly.FromDateTime(DateTime.Now);
+        }
+        if(dto.Description!="")
+            order.Description=dto.Description;
+        if(dto.Master !="")
+            order.Master=dto.Master;
+        if(dto.Comment !="")
+            order.Comments.Add(dto.Comment);
+    }
+});
 app.Run();
 
 class Order
