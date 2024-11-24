@@ -6,14 +6,9 @@
     <a href="create.html">Создание заявки</a>
     <a href="orders.html">Список заявок</a>
     <a href="update.html">Обновление заявки</a>
+    <a href="stat.html">Статистика</a><br>
     <iframe name="frame" style="display: none;"></iframe>
     <form target="frame" action="http://localhost:5259/orders" method="post">
-        <input required placeholder="number" type="number" name="number"/>
-        <input required placeholder="startDate" type="date" name="startDate"/>
-        <input required placeholder="device" type="text" name="device"/>
-        <input required placeholder="problemtype" type="text" name="problemtype"/>
-        <input required placeholder="description" type="text" name="description"/>
-        <input required placeholder="client" type="text" name="client"/>
         <input required placeholder="Номер" type="number" name="number"/><br/>
         <label for="startDate">Дата начала</label><br/>
         <input required type="date" name="startDate"/><br/>
@@ -26,7 +21,6 @@
             <option>в ожидании</option>
             <option>в работе</option>
             <option>выполнено</option>
-        </select>
         </select><br/>
         <input type="submit" value="Создание" />
     </form>

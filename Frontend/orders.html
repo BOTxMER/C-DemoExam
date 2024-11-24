@@ -6,24 +6,38 @@
     <a href="create.html">Создание заявки</a>
     <a href="orders.html">Список заявок</a>
     <a href="update.html">Обновление заявки</a>
+    <a href="stat.html">Статистика</a><br>
+    <div>
+        <input id="search"placeholder = "Номер"/>
+        <button onclick="GetFilter()">Найти</button>
+    </div>
     <table>
-        <tr>
-            <th>Номер заявки</th>
-            <th>Дата добавления</th>
-            <th>Оборудование</th>
-            <th>Тип неисправности</th>
-            <th>Описание проблемы</th>
-            <th>Клиент</th>
-            <th>Статус заявки</th>
-            <th>Мастер</th>
-        </tr>
+        <thead>
+            <tr>
+                <th>Номер заявки</th>
+                <th>Дата добавления</th>
+                <th>Оборудование</th>
+                <th>Тип неисправности</th>
+                <th>Описание проблемы</th>
+                <th>Клиент</th>
+                <th>Статус заявки</th>
+                <th>Мастер</th>
+                <th>Комментарии</th>
+                </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
     </table>
     <script>
-        let table = document.querySelector("table");
+        let table = document.querySelector("tbody");
         GetOrders();
 
-        async function GetOrders() {
-            let response = await fetch("http://localhost:5259//orders").then(data => data.json());
+        async function GetOrders(param = null) {
+
+            let response = param ?
+            await fetch(`http://localhost:5259/orders?param=${param}`).then(data => data.json()):
+            await fetch("http://localhost:5259/orders").then(data => data.json())
             if(response.message)
                 alert(response.message);
             response.repo.forEach(o => {
@@ -34,15 +48,23 @@
                     <td>${o.startDate}</td>
                     <td>${o.device}</td>
                     <td>${o.problemType}</td>
+                    <td>${o.problemtype}</td>
                     <td>${o.description}</td>
                     <td>${o.client}</td>
                     <td>${o.status}</td>
-                    <td>${o.master}</td> `;
+                    <td>${o.master}</td> 
+                    <td>${o.comments}</td>`;
 
                 table.append(tr);
             });
 
         }
+
+    function GetFilter() {
+        table.innerHTML = ""
+        let param = document.getElementById("search").value;
+        GetOrders(param)
+    }
 
     </script>
     <style>
