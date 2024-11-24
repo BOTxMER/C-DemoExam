@@ -1,3 +1,7 @@
+List<Order> repo =[
+    new (1,new(2008,6,21),"Laptop","Не работает","пролил колу на laptop", "Джесси Пинкман", "В ожидании")
+];
+
 var builder = WebApplication.CreateBuilder();
 var app = builder.Build();
 
@@ -31,3 +35,4 @@ class Order
 }
 
 record class UpdateOrderDTO(int Number, string? Status = "", string? Description = "", string? Master = "", string? Comment = "");
+
