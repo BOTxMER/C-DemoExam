@@ -49,6 +49,10 @@ int complete_count() => repo.FindAll(x=>x.Status =="выполнено").Count;
 Dictionary<string,int> get_problem_type_stat() =>
     repo.GroupBy(x=>x.ProblemType).Select(x=>(x.Key, x.Count())).ToDictionary(k => k.Key, v=>v.Item2); 
 
+double get_average_time_to_complete() =>
+    complete_count()==0?0:
+    repo.FindAll(x=>x.Status=="выполнено").Select(x=>x.EndDate.Value.DayNumber-x.StartDate.DayNumber).Sum()/complete_count();
+    
 app.Run();
 
 class Order
