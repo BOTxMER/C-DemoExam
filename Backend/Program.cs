@@ -64,14 +64,14 @@ app.Run();
 
 class Order
 {
-    public Order(int number, DateOnly startDate, string device, string problemType, string description, string cLient, string status)
+    public Order(int number, DateOnly startDate, string device, string problemType, string description, string client, string status)
     {   
         Number = number;
         StartDate = startDate;
         Device = device;
         ProblemType = problemType;
         Description = description;
-        CLient = cLient;
+        Client = client;
         Status = status;
     }
 
@@ -80,7 +80,7 @@ class Order
     public string Device { get; set;}
     public string ProblemType { get; set;}
     public string Description { get; set;}
-    public string CLient { get; set;}
+    public string Client { get; set;}
     public string Status {get; set;}
     public DateOnly? EndDate { get; set;}=null;
     public string? Master { get; set;} = "Не назначен";
