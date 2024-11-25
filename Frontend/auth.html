@@ -1,24 +1,114 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Авторизация</title>
+    <style>
+        body{
+            background-color: #FFC0CB;
+        }
+        /* Основной контейнер */
+        .container {
+            display: flex;
+            height: 97vh;
+        }
+
+        /* Ячейка с изображением (15% ширины) */
+        .image-cell {
+            width: 15%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /*border: 1px solid black;*/
+            background-color: #FFB6C1;
+        }
+
+        /* Контейнер для верхней ячейки и ячейки с формой */
+        .right-side {
+            background-color: #FFB6C1;
+            display: flex;
+            flex-direction: column;
+            width: 85%; /* Оставшееся место после ячейки с изображением */
+        }
+
+        /* Верхняя ячейка (заполняет верхнюю часть экрана) */
+        .upp {
+            flex-grow: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size:50px;
+           /* border: 1px solid black;*/
+            height: 10%; /* Ячейка занимает 10% от высоты */
+        }
+
+        /* Ячейка с формой (заполняет оставшуюся часть) */
+        .form-cell {
+            background-color: #FFB6C1;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          /*  border: 1px solid black;*/
+        }
+
+        /* Стили для полей ввода и кнопки */
+        .form-cell input {
+            margin: 5px;
+            padding: 8px;
+            width: 200px;
+        }
+
+        .form-cell button {
+            padding: 10px;
+            width: 220px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .form-cell button:hover {
+            background-color: #45a049;
+        }
+
+    </style>
 </head>
 <body>
-    <input type="text" name="login" id="login" placeholder="Логин" required>
-    <input type="password" name="password" id="password" placeholder="Пароль" required>
-    <button onclick="Auth()">Войти</button>
-</body> 
+    
+    <div class="container">
+        <!-- Ячейка с изображением -->
+        <div class="image-cell">
+            <img src="/photo/olga.jpg" width="200px" style=" position:absolute; margin-top: 100px;"> 
+            <img src="/photo/mem.jpg" width="200px" style=" position:absolute; margin-bottom: 360px;">
+            <img src="/photo/soda.jpg" width="200px" style=" position:absolute; margin-top: 450px;">
+        </div>
+
+        <!-- Контейнер для правой части -->
+        <div class="right-side">
+            <!-- Верхняя ячейка -->
+            <div class="upp"><font face="cursive">Добро пожаловть в ремонтный сервис</font></div>
+
+            <!-- Ячейка с формой -->
+            <div class="form-cell">
+                <input type="text" name="login" id="login" placeholder="Логин" required>
+                <input type="password" name="password" id="password" placeholder="Пароль" required>
+                <button onclick="Auth()">Войти</button>
+            </div>
+        </div>
+    </div>
+
+</body>
 <script>
     const trueLogin = "123";
     const truePassword = "123";
 
-    function Auth()
-    {
+    function Auth() {
         let login = document.getElementById("login").value;
         let password = document.getElementById("password").value;
 
-        if(login != trueLogin || password != truePassword)
-        {
+        if (login != trueLogin || password != truePassword) {
             alert("Неправильный логин или пароль");
             return;
         }

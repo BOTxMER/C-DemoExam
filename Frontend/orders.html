@@ -1,7 +1,28 @@
 <!DOCTYPE html>
-<html >
+<html>
 <head>
     <title>Список заявок</title>
+    <style>
+        /* Центрирование таблицы */
+        table {
+            margin: 0 auto; /* Центрирует таблицу по горизонтали */
+            border-collapse: collapse; /* Убирает отступы между ячейками */
+            width: 90%; /* Можно настроить ширину таблицы */
+        }
+
+        th, td {
+            border: 1px solid black; /* Границы ячеек */
+            padding: 10px; /* Добавить отступы в ячейках */
+            text-align: center; /* Выравнивание текста по центру */
+        }
+
+        /* Стиль для ссылок */
+        a {
+            margin: 10px;
+            text-decoration: none;
+            color: black;
+        }
+    </style>
 </head>
 <body>
     <a href="create.html">Создание заявки</a>
@@ -31,7 +52,6 @@
     </table>
 </body>
 <script>
-
     if(!sessionStorage.getItem("token"))
         window.location.href = "auth.html"; 
 
@@ -74,7 +94,4 @@
         GetOrders(param)
     }
 </script>
-<style>
-    th, td { border: 1px solid black;}
-</style>
 </html>
