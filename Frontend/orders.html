@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html >
 <head>
     <title>Список заявок</title>
 </head>
@@ -7,10 +7,10 @@
     <a href="create.html">Создание заявки</a>
     <a href="orders.html">Список заявок</a>
     <a href="update.html">Обновление заявки</a>
-    <a href="stat.html">Статистика</a><br>
+    <a href="stat.html">Статистика</a>
     <div>
-        <input id="search"placeholder = "Номер"/>
-        <button onclick="GetFilter()">Найти</button>
+        <input id="search" placeholder="Номер"/> 
+        <button onClick="GetFilter()">Найти</button>
     </div>
     <table>
         <thead>
@@ -21,65 +21,60 @@
                 <th>Тип неисправности</th>
                 <th>Описание проблемы</th>
                 <th>Клиент</th>
-                <th>Статус заявки</th>
+                <th>Статус</th>
                 <th>Мастер</th>
                 <th>Комментарии</th>
-                </tr>
-    </thead>
-    <tbody>
-
-    </tbody>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
     </table>
-    <script>
-        let table = document.querySelector("tbody");
-        GetOrders();
+</body>
+<script>
 
-        async function GetOrders(param = null) {
+    if(!sessionStorage.getItem("token"))
+        window.location.href = "auth.html"; 
 
-            let response = param ?
-            await fetch(`http://localhost:5259/orders?param=${param}`).then(data => data.json()):
-            await fetch("http://localhost:5259/orders").then(data => data.json())
-            if(response.message)
-                alert(response.message);
-            response.repo.forEach(o => {
-               let tr = document.createElement("tr"); 
+    let tbody = document.querySelector("tbody");
 
-               tr.innerHTML = `
-                    <td>${o.number}</td>
-                    <td>${o.startDate}</td>
-                    <td>${o.device}</td>
-                    <td>${o.problemType}</td>
-                    <td>${o.description}</td>
-                    <td>${o.client}</td>
-                    <td>${o.status}</td>
-                    <td>${o.master}</td> 
-                    <td>${o.comments}</td>`;
+    GetOrders();
 
-                table.append(tr);
-            });
+    async function GetOrders(param = null) {
+        let uri = param ? 
+        `http://localhost:5259/orders?param=${param}` : 
+        "http://localhost:5259/orders";
 
-        }
+        let response = await fetch(uri).then(data => data.json())
+        
+        if(response.message)
+            alert(response.message);
+
+        response.repo.forEach(o => {
+            let tr = document.createElement("tr");
+
+            tr.innerHTML = `
+                <td>${o.number}</td>
+                <td>${o.startDate}</td>
+                <td>${o.device}</td>
+                <td>${o.problemType}</td>
+                <td>${o.description}</td>
+                <td>${o.client}</td>
+                <td>${o.status}</td>
+                <td>${o.master}</td>
+                <td>${o.comments}</td>`;
+
+            tbody.append(tr);
+        });
+        
+    }
 
     function GetFilter() {
-        table.innerHTML = ""
+        tbody.innerHTML = ""
         let param = document.getElementById("search").value;
         GetOrders(param)
     }
-
-    </script>
-    <style>
-        th, td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #2fca29;
-            color: white;
-        }
-
-        tr:hover {background-color: #f1f1f1;}
-    </style>
-</body>
+</script>
+<style>
+    th, td { border: 1px solid black;}
+</style>
 </html>
