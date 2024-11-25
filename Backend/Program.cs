@@ -36,14 +36,19 @@ app.MapGet("update", ([AsParameters]UpdateOrderDTO dto) =>
             message += $"Заявка №{order.Number} завершена\n";
             order.EndDate=DateOnly.FromDateTime(DateTime.Now);
         }
-        if(dto.Description!="")
-            order.Description=dto.Description;
-        if(dto.Master !="")
-            order.Master=dto.Master;
-        if(dto.Comment !="")
-            order.Comments.Add(dto.Comment);
     }
+    if(dto.Description!="")
+         order.Description=dto.Description;
+    if(dto.Master !="")
+        order.Master=dto.Master;
+    if(dto.Comment !="")
+        order.Comments.Add(dto.Comment);
 });
+
+int complete_count() => repo.FindAll(x=>x.Status =="выполнено").Count;
+Dictionary<string,int> get_problem_type_stat() =>
+    repo.GroupBy(x=>x.ProblemType).Select(x=>(x.Key, x.Count())).ToDictionary(k => k.Key, v=>v.Item2); 
+
 app.Run();
 
 class Order
