@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Список заявок</title>
+    <style>
+        body{
+            background-color: #FFC0CB;
+        }
+        table {
+            margin: 0 auto;
+            border-collapse: collapse; 
+            width: 90%; 
+            background-color: white;
+        }
+
+        th, td {
+            border: 1px solid black; 
+            padding: 10px; 
+            text-align: center; 
+        }
+        a {
+            margin: 10px;
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <a href="createord.html">Создание заявки</a>
+    <a href="ord.html">Список заявок</a>
+    <a href="upd.html">Обновление заявки</a>
+    <a href="stati.html">Статистика</a>
+    <div>
+        <input id="search" placeholder="Номер"/> 
+        <button onClick="GetFilter()">Найти</button>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Номер заявки</th>
+                <th>Дата добавления</th>
+                <th>Тип вейпа</th>
+                <th>На какое время</th>
+                <th>Вкус жидкости</th>
+                <th>Клиент</th>
+                <th>Статус</th>
+                <th>Мастер</th>
+                <th>Комментарии</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</body>
+<script>
+    if(!sessionStorage.getItem("token"))
+        window.location.href = "auth.html"; 
+
+    let tbody = document.querySelector("tbody");
+
+    GetOrders();
+
+    async function GetOrders(param = null) {
+        let uri = param ? 
+        `http://localhost:5259/orders?param=${param}` : 
+        "http://localhost:5259/orders";
+
+        let response = await fetch(uri).then(data => data.json())
+        
+        if(response.message)
+            alert(response.message);
+
+        response.repo.forEach(o => {
+            let tr = document.createElement("tr");
+
+            tr.innerHTML = `
+                <td>${o.number}</td>
+                <td>${o.startDate}</td>
+                <td>${o.vapeRent}</td>
+                <td>${o.hour}</td>
+                <td>${o.tasteLiquid}</td>
+                <td>${o.client}</td>
+                <td>${o.status}</td>
+                <td>${o.diller}</td>
+                <td>${o.comments}</td>`;
+
+            tbody.append(tr);
+        });
+        
+    }
+
+    function GetFilter() {
+        tbody.innerHTML = ""
+        let param = document.getElementById("search").value;
+        GetOrders(param)
+    }
+</script>
+</html>

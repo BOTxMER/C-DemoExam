@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Создание заявки</title>
+    <style>
+        body{
+            background-color: #FFC0CB;
+        }
+        table {
+            margin: 0 auto; 
+            border-collapse: collapse; 
+            width: 90%;
+            background-color: white;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+        a {
+            margin: 10px;
+            text-decoration: none;
+            color: black;
+        }
+        input{
+            margin: 5px;
+            padding: 8px;
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <a href="createord.html">Создание заявки</a>
+    <a href="ord.html">Список заявок</a>
+    <a href="upd.html">Обновление заявки</a>
+    <a href="stati.html">Статистика</a>
+    <iframe name="frame" style="display: none;"></iframe>
+    <form target="frame" action="http://localhost:5259/create" method="get">
+        <input required placeholder="Номер" type="number" name="number" /><br/>
+        <label for="startDate">Дата начала</label><br/>
+        <input required type="date" name="startDate" /><br/>
+        <input required placeholder="Какой вейп" type="text" name="vapeRent" /><br/>
+        <input required placeholder="На какое время" type="text" name="hour" /><br/>
+        <input required placeholder="Какой вкус" type="text" name="tasteLiquid" /><br/>
+        <input required placeholder="Клиент" type="text" name="client" /><br/>
+        <label for="status">Статус</label><br/>
+        <select name="status">
+            <option>В ожидании доставки</option>
+            <option>Доставляется</option>
+            <option>Доставлено</option>
+        </select><br/>
+        <input type="submit" value="Создание"  />
+    </form>
+</body>
+<script>
+    if(!sessionStorage.getItem("token"))
+        window.location.href = "auth.html";
+</script>
+</html>

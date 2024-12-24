@@ -1,3 +1,4 @@
+.vs
 .vscode
 Backend.sln
 Backend/bin
@@ -6,4 +7,5 @@ Backend/Properties
 Backend/appsettings.Development.json
 Backend/appsettings.json
 Backend/Backend.csproj
+.gitignore
 
